@@ -4,59 +4,882 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=portfolio.html">
-    <title>Ephrem Gelaye Bekele - Portfolio</title>
+    <title>CV - Ephrem Gelaye Bekele</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --sidebar-bg: #323333;
+            --main-accent: #a57c52;
+            --main-accent-light: #c5a075;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-white: #ffffff;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: #1a1d29;
-            color: #e4e6eb;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: 'Open Sans', sans-serif;
+            background-color: #e5e7eb;
+            color: var(--text-dark);
             margin: 0;
+            padding: 0;
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .language-selector select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid var(--main-accent-light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            font-weight: 600;
+        }
+
+        .language-selector select option {
+            background-color: var(--sidebar-bg);
+            color: var(--text-light);
+        }
+
+        .cv-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--bg-white);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Header Style */
+        .header {
+            background-color: var(--sidebar-bg);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: var(--main-accent);
+            clip-path: ellipse(70% 50% at 50% 0%);
+            z-index: 5;
+        }
+
+        .header-content {
+            z-index: 10;
+        }
+
+        .profile-img-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--main-accent-light);
+            overflow: hidden;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name-title h1 {
+            font-size: 42px;
+            font-weight: 400;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .name-title h1 span {
+            font-weight: 700;
+        }
+
+        .name-title p.job-title {
+            font-size: 18px;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .summary {
+            margin-top: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        /* Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 1000px;
+        }
+
+        /* Sidebar Style */
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            color: var(--text-light);
+            padding: 80px 30px 40px 30px;
+            z-index: 1;
+        }
+
+        .contact-info {
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .contact-item i {
+            color: var(--main-accent-light);
+            width: 16px;
             text-align: center;
         }
 
-        .loader {
-            font-size: 1.5rem;
+        .sidebar-title-box {
+            border: 2px solid var(--main-accent);
+            border-radius: 25px;
+            padding: 8px 15px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 25px;
+            margin-top: 40px;
+            letter-spacing: 1px;
         }
 
-        .spinner {
-            border: 4px solid rgba(197, 160, 89, 0.1);
-            border-top: 4px solid #c5a059;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+        .sidebar-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
+        .sidebar-list li {
+            margin-bottom: 15px;
+            font-size: 13px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .sidebar-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--main-accent-light);
+        }
+
+        /* Content Area Style */
+        .content-area {
+            padding: 80px 40px 40px 40px;
+        }
+
+        .content-title-box {
+            background-color: var(--main-accent);
+            color: var(--text-light);
+            border-radius: 25px;
+            padding: 10px 30px;
+            display: inline-block;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .experience-item {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+
+        .exp-header {
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            color: var(--text-dark);
+        }
+
+        .exp-date {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .exp-body {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        .exp-body ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .exp-body ul li {
+            margin-bottom: 6px;
+        }
+
+        .achievement-card {
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--main-accent);
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        .project-detail {
+            background-color: #f5f5f5;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        /* Print Optimization */
+        @media print {
+            body {
+                background: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
-            100% {
-                transform: rotate(360deg);
+            .cv-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
             }
+
+            .no-print {
+                display: none !important;
+            }
+
+            /* Preserve all colors in print */
+            .header,
+            .sidebar,
+            .sidebar-title-box,
+            .content-title-box,
+            .profile-img-container,
+            .contact-item i,
+            .achievement-card,
+            .footer-line {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Ensure all background colors and borders print */
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        .footer-line {
+            height: 15px;
+            background-color: var(--main-accent);
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
-    <div class="loader">
-        <div class="spinner"></div>
-        <p>Loading Portfolio...</p>
-        <p style="font-size: 0.9rem; color: #9ca3af; margin-top: 10px;">
-            If not redirected, <a href="portfolio.html" style="color: #c5a059;">click here</a>
-        </p>
+
+    <div class="cv-container">
+        <!-- Header Section -->
+        <header class="header">
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <select id="languageSelect" onchange="changeLanguage()">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="sw">🇹🇿 Kiswahili</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="am">🇪🇹 አማርኛ</option>
+                </select>
+            </div>
+            <div class="profile-img-container">
+                <img src="profile.png" alt="Ephrem Gelaye Bekele">
+            </div>
+            <div class="header-content">
+                <div class="name-title">
+                    <h1><span>Ephrem Gelaye Bekele</span></h1>
+                    <p class="job-title" data-lang="jobTitle">Senior Pavement and Materials Engineer</p>
+                </div>
+                <p class="summary" data-lang="summary">
+                    Highly experienced Senior Pavement and Materials Engineer with over 15 years of expertise in road
+                    construction supervision, design review, and materials testing. Expert in concrete and asphalt mix
+                    design (including Superpave), quality assurance, and laboratory management across Ethiopia and
+                    Tanzania.
+                </p>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Sidebar (Left) -->
+            <aside class="sidebar">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>12.02.1985</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-flag"></i>
+                        <span>Ethiopian</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+255 743 746 782</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+251 904 321 287</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>ephwz2000@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Addis Ababa, Ethiopia</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-certificate"></i>
+                        <span>PPME/1949</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-title-box" data-lang="skills">Skills</div>
+                <ul class="sidebar-list">
+                    <li data-lang="skill1">Pavement Design</li>
+                    <li data-lang="skill2">Concrete Mix Design</li>
+                    <li data-lang="skill3">Asphalt Mix Design (Superpave & Marshall)</li>
+                    <li data-lang="skill4">DBST Design</li>
+                    <li data-lang="skill5">DCP Analysis</li>
+                    <li data-lang="skill6">Laboratory Management</li>
+                    <li data-lang="skill7">Quality Assurance</li>
+                    <li data-lang="skill8">Construction Supervision</li>
+                    <li data-lang="skill9">Materials Testing</li>
+                </ul>
+
+                <div class="sidebar-title-box" data-lang="software">Software</div>
+                <ul class="sidebar-list">
+                    <li>MS Word</li>
+                    <li>MS Excel</li>
+                    <li>MS Project</li>
+                    <li>AutoCAD</li>
+                    <li>DCP Software</li>
+                </ul>
+
+                <div class="sidebar-title-box" data-lang="languages">Languages</div>
+                <ul class="sidebar-list">
+                    <li data-lang="lang1">English: Excellent</li>
+                    <li data-lang="lang2">Amharic: Native</li>
+                </ul>
+
+                <div class="sidebar-title-box" data-lang="membership">Membership</div>
+                <ul class="sidebar-list">
+                    <li data-lang="membershipText">Practicing Professional Materials Engineer</li>
+                    <li data-lang="license">License: PPME/1949</li>
+                </ul>
+            </aside>
+
+            <!-- Main Content (Right) -->
+            <main class="content-area">
+
+                <div class="content-title-box" data-lang="experience">Professional Experience</div>
+
+                <!-- Experience 1 -->
+                <div class="experience-item">
+                    <div class="exp-header">SABA Engineering PLC | Senior Pavement & Materials Engineer</div>
+                    <div class="exp-date">April 2024 – Present | Tanzania</div>
+                    <div class="project-detail">
+                        <strong>Project:</strong> Consultancy Service for Design Review and Supervision of Upgrading of
+                        Ntendo-Muze-Kilyamatundu Road Section (179 Km) to Bitumen Standard<br>
+                        <strong>Client:</strong> Tanzania National Roads Agency (TANROADS)
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Review all studies carried out during the design phase</li>
+                            <li>Prepare quality control reports</li>
+                            <li>Monitor and verify construction methodologies, quality control tests, testing
+                                procedures, and specifications</li>
+                            <li>Assist the Resident Engineer in reviewing contractor's construction methods</li>
+                            <li>Monitor the setting up of Contractor's laboratories and review calibration of equipment
+                            </li>
+                            <li>Perform concrete mix design for the project</li>
+                            <li>Perform and follow up Double Bituminous Surface Dressing (DBST) works</li>
+                            <li>Manage laboratory testing and field supervision</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="experience-item">
+                    <div class="exp-header">GRE German Rail Engineering | Senior Pavement & Materials Engineer</div>
+                    <div class="exp-date">July 2023 – April 2024 | Ethiopia</div>
+                    <div class="project-detail">
+                        <strong>Project:</strong> Africa Avenue-Bole Medhanealem-Traffic Police-Misrak Atekalay to
+                        British Embassy Urban Road Project<br>
+                        <strong>Client:</strong> Addis Ababa City Roads Authority
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Review all studies carried out during the design phase</li>
+                            <li>Monitor and verify construction methodologies and quality control tests</li>
+                            <li>Assist in preparation of quality assurance manual and system</li>
+                            <li>Perform concrete mix design for the project</li>
+                            <li>Perform and follow up Asphalt concrete mix design by Superpave method</li>
+                            <li>Check compliance with specifications and plant trial mix</li>
+                            <li>Manage laboratory testing and construction supervision</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Special Achievement -->
+                <div class="experience-item">
+                    <div class="exp-header">G and Y Engineering Consult Plc | Special Contract Engineer</div>
+                    <div class="exp-date">January 2023 – September 2023 | Ethiopia</div>
+                    <div class="achievement-card">
+                        <strong>🏆 Special Intervention Project:</strong> Guder-Ambo Asphalt Road Project<br>
+                        <strong>Client:</strong> Ethiopia Roads Authority<br><br>
+                        Employed under special contract to address and resolve critical asphalt mix design issues.
+                        Successfully finalized the mix design with a cost-effective and meticulous approach, providing
+                        an optimal and ideal solution that saved the project timeline and budget.
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Resolved critical asphalt mix design failures</li>
+                            <li>Controlled samples and quality tests for asphalt aggregate from stockpiles and hot bins
+                            </li>
+                            <li>Performed and followed up Asphalt concrete mix design in laboratory</li>
+                            <li>Verified compliance with specifications and plant trial mix</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 4 -->
+                <div class="experience-item">
+                    <div class="exp-header">GUBALAFTO Consulting | Senior Resident & Pavement Engineer</div>
+                    <div class="exp-date">December 2021 – December 2022 | Ethiopia</div>
+                    <div class="project-detail">
+                        <strong>Project:</strong> Akaki Modern Tannery Asphalt Road Project<br>
+                        <strong>Client:</strong> Midroc Investment Group (Akaki Modern Tannery Plc)
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Reviewed design phase studies and prepared quality control reports</li>
+                            <li>Monitored construction methodologies and quality control tests</li>
+                            <li>Prepared quality assurance manual and system</li>
+                            <li>Performed concrete and asphalt mix designs</li>
+                            <li>Organized and checked overall performance of laboratory teams</li>
+                            <li>Prepared monthly material reports</li>
+                            <li>Ensured best construction practices and specification compliance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 5 -->
+                <div class="experience-item">
+                    <div class="exp-header">Ases Consulting | Senior Resident & Pavement Engineer</div>
+                    <div class="exp-date">July 2021 – August 2022 | Ethiopia</div>
+                    <div class="project-detail">
+                        <strong>Project:</strong> Shakiso Kelech compound-Laga Dembi Double Surface Dressing Road<br>
+                        <strong>Client:</strong> Midroc Gold Mines Plc
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Performed Double Bituminous Surface Treatment (DBST) design</li>
+                            <li>Guided extensive field and laboratory testing for subgrade suitability</li>
+                            <li>Identified suitable sources of construction materials</li>
+                            <li>Recommended proposals for difficult terrain</li>
+                            <li>Prepared Material and Pavement design review reports</li>
+                            <li>Supervised earthworks and pavement layer construction</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 6 -->
+                <div class="experience-item">
+                    <div class="exp-header">G and Y Engineering Consult Plc | Senior Pavement Engineer</div>
+                    <div class="exp-date">June 2020 – August 2021 | Ethiopia</div>
+                    <div class="project-detail">
+                        <strong>Multiple Projects:</strong> Werabe-Bojeber (41km), Yalo-Halala Kela (14.5km),
+                        Wonchi-Dandi (110km), Robe-Gasera-Ginir (60km), and others<br>
+                        <strong>Client:</strong> Ethiopian Roads Authority (ERA)
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Conducted feasibility studies and detailed engineering design</li>
+                            <li>Prepared tender documents and cost estimations</li>
+                            <li>Identified potential construction material sites</li>
+                            <li>Designed pavement based on anticipated traffic</li>
+                            <li>Prepared Soil, Material, and Pavement Design Reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 7 -->
+                <div class="experience-item">
+                    <div class="exp-header">Dana and Associates | Senior Pavement Engineer</div>
+                    <div class="exp-date">December 2017 – September 2020 | Ethiopia</div>
+                    <div class="project-detail">
+                        <strong>Project:</strong> Jijiga-Gelelesh-Degehamedo-Segeg Road Project<br>
+                        <strong>Client:</strong> Ethiopian Roads Authority (ERA)
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Performed asphalt concrete mix design and quality control monitoring</li>
+                            <li>Organized and checked overall performance of laboratory teams</li>
+                            <li>Followed up day-to-day tests for earthwork, base course, and asphalt works</li>
+                            <li>Prepared monthly material reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 8 -->
+                <div class="experience-item">
+                    <div class="exp-header">Big Bang Consulting Engineers | Senior Pavement Engineer</div>
+                    <div class="exp-date">April 2011 – December 2017 | Ethiopia</div>
+                    <div class="project-detail">
+                        <strong>Projects:</strong> Bilo-Koyekonchi (89km), Albasa-Kubsa (105km), Halilu-Dabba (55km)<br>
+                        <strong>Client:</strong> Oromia Roads Authority
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Carried out sampling and in-situ density/moisture tests</li>
+                            <li>Identified suitable sources of construction materials</li>
+                            <li>Monitored construction methodologies and quality control</li>
+                            <li>Prepared monthly material reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 9 -->
+                <div class="experience-item">
+                    <div class="exp-header">Beza Consulting Engineers | Junior/Senior Engineer</div>
+                    <div class="exp-date">August 2008 – April 2011 | Ethiopia</div>
+                    <div class="project-detail">
+                        <strong>Multiple Projects:</strong> Alaba-Sodo-Arbaminch (85km), Nekemt-Bedele-Metu (215km), and
+                        others<br>
+                        <strong>Client:</strong> Ethiopian Roads Authority (ERA)
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Conducted periodic traffic counts and subgrade material description</li>
+                            <li>Followed up laboratory preparation and mix design verification</li>
+                            <li>Analyzed lab test results and recommended treatment for problematic soils</li>
+                            <li>Performed detailed subgrade soil investigation using DCP</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-title-box" style="margin-top: 40px;" data-lang="education">Education and Training
+                </div>
+
+                <div class="experience-item">
+                    <div class="exp-header">MSc in Project Planning and Management</div>
+                    <div class="exp-date">September 2021 – June 2024</div>
+                    <div class="exp-body">
+                        <strong>Institution:</strong> Yom Post Graduate College<br>
+                        Advanced studies in infrastructure project management, monitoring and evaluation, and strategic
+                        construction planning.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="exp-header">BSc in Civil Engineering</div>
+                    <div class="exp-date">September 2004 – July 2008</div>
+                    <div class="exp-body">
+                        <strong>Institution:</strong> Mekelle University<br>
+                        Foundational engineering education with emphasis on structural materials, hydraulics, and
+                        highway engineering.
+                    </div>
+                </div>
+
+                <!-- References Section -->
+                <div style="margin-top: 50px; border-top: 2px solid var(--main-accent); padding-top: 20px;">
+                    <h3 style="font-size: 16px; font-weight: 700; text-transform: uppercase; color: var(--main-accent); margin-bottom: 20px;"
+                        data-lang="references">Professional References</h3>
+
+                    <div style="margin-bottom: 20px;">
+                        <p style="font-weight: 700; margin-bottom: 5px;">Gabriel Deribe (Eng.)</p>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 3px;">Branch Engineer, Senior Materials &
+                            Pavement Engineer</p>
+                        <p style="font-size: 12px; color: #666;">📞 +251 911 935 552</p>
+                        <p style="font-size: 12px; color: #666;">✉️ gabriel.deribe@gre-rail.com</p>
+                    </div>
+
+                    <div>
+                        <p style="font-weight: 700; margin-bottom: 5px;">Getachew Dessie (Eng.)</p>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 3px;">Resident Project Manager</p>
+                        <p style="font-size: 12px; color: #666;">📞 +251 911 352 737 / +255 746 691 291</p>
+                        <p style="font-size: 12px; color: #666;">✉️ agetchas1986@gmail.com</p>
+                    </div>
+                </div>
+
+                <!-- Certification Statement -->
+                <div style="margin-top: 40px; padding: 20px; background-color: #f9f9f9; border-radius: 10px;">
+                    <p style="font-size: 11px; font-style: italic; line-height: 1.6;">
+                        <strong data-lang="certificationTitle">Certification:</strong> <span
+                            data-lang="certificationText">I, the undersigned, certify that to the best of my knowledge
+                            and
+                            belief, this CV correctly describes myself, my qualifications, and my experience, and I am
+                            available to undertake assignments. I understand that any misstatement or misrepresentation
+                            described herein may lead to my disqualification or dismissal by the Client.</span>
+                    </p>
+                </div>
+
+            </main>
+        </div>
+
+        <div class="footer-line"></div>
     </div>
+
+    <!-- Floating Print Button -->
+    <button onclick="window.print()"
+        class="no-print fixed bottom-8 right-8 bg-black hover:bg-gray-800 text-white p-4 rounded-full shadow-xl transition-all z-50">
+        <i class="fas fa-print"></i>
+    </button>
+
     <script>
-        // Redirect to portfolio
-        window.location.href = 'portfolio.html';
+        // Comprehensive CV translations
+        const fullTranslations = {
+            en: {
+                // Section titles
+                skills: 'Skills',
+                software: 'Software',
+                languages: 'Languages',
+                membership: 'Membership',
+                experience: 'Professional Experience',
+                education: 'Education and Training',
+                references: 'Professional References',
+
+                // Job title and summary
+                jobTitle: 'Senior Pavement and Materials Engineer',
+                summary: 'Highly experienced Senior Pavement and Materials Engineer with over 15 years of expertise in road construction supervision, design review, and materials testing. Expert in concrete and asphalt mix design (including Superpave), quality assurance, and laboratory management across Ethiopia and Tanzania.',
+
+                // Skills
+                skill1: 'Pavement Design',
+                skill2: 'Concrete Mix Design',
+                skill3: 'Asphalt Mix Design (Superpave & Marshall)',
+                skill4: 'DBST Design',
+                skill5: 'DCP Analysis',
+                skill6: 'Laboratory Management',
+                skill7: 'Quality Assurance',
+                skill8: 'Construction Supervision',
+                skill9: 'Materials Testing',
+
+                // Membership
+                membershipText: 'Practicing Professional Materials Engineer',
+                license: 'License: PPME/1949',
+
+                // Languages
+                lang1: 'English: Excellent',
+                lang2: 'Amharic: Native',
+
+                // Certification
+                certificationTitle: 'Certification:',
+                certificationText: 'I, the undersigned, certify that to the best of my knowledge and belief, this CV correctly describes myself, my qualifications, and my experience, and I am available to undertake assignments. I understand that any misstatement or misrepresentation described herein may lead to my disqualification or dismissal by the Client.'
+            },
+            es: {
+                // Section titles
+                skills: 'Competencias',
+                software: 'Software',
+                languages: 'Idiomas',
+                membership: 'Membresía',
+                experience: 'Experiencia Profesional',
+                education: 'Educación y Formación',
+                references: 'Referencias Profesionales',
+
+                // Job title and summary
+                jobTitle: 'Ingeniero Senior de Pavimentos y Materiales',
+                summary: 'Ingeniero Senior de Pavimentos y Materiales altamente experimentado con más de 15 años de experiencia en supervisión de construcción de carreteras, revisión de diseños y pruebas de materiales. Experto en diseño de mezclas de concreto y asfalto (incluyendo Superpave), aseguramiento de calidad y gestión de laboratorios en Etiopía y Tanzania.',
+
+                // Skills
+                skill1: 'Diseño de Pavimentos',
+                skill2: 'Diseño de Mezcla de Concreto',
+                skill3: 'Diseño de Mezcla de Asfalto (Superpave y Marshall)',
+                skill4: 'Diseño DBST',
+                skill5: 'Análisis DCP',
+                skill6: 'Gestión de Laboratorio',
+                skill7: 'Aseguramiento de Calidad',
+                skill8: 'Supervisión de Construcción',
+                skill9: 'Pruebas de Materiales',
+
+                // Membership
+                membershipText: 'Ingeniero Profesional de Materiales en Ejercicio',
+                license: 'Licencia: PPME/1949',
+
+                // Languages
+                lang1: 'Inglés: Excelente',
+                lang2: 'Amárico: Nativo',
+
+                // Certification
+                certificationTitle: 'Certificación:',
+                certificationText: 'Yo, el abajo firmante, certifico que según mi leal saber y entender, este CV me describe correctamente, mis calificaciones y mi experiencia, y estoy disponible para realizar asignaciones. Entiendo que cualquier declaración falsa o tergiversación aquí descrita puede llevar a mi descalificación o despido por parte del Cliente.'
+            },
+            sw: {
+                // Section titles
+                skills: 'Ujuzi',
+                software: 'Programu',
+                languages: 'Lugha',
+                membership: 'Uanachama',
+                experience: 'Uzoefu wa Kitaaluma',
+                education: 'Elimu na Mafunzo',
+                references: 'Marejeleo ya Kitaaluma',
+
+                // Job title and summary
+                jobTitle: 'Mhandisi Mkuu wa Lami na Nyenzo',
+                summary: 'Mhandisi Mkuu wa Lami na Nyenzo mwenye uzoefu mkubwa zaidi ya miaka 15 katika usimamizi wa ujenzi wa barabara, ukaguzi wa muundo, na upimaji wa vifaa. Mtaalamu wa muundo wa mchanganyiko wa saruji na lami (ikiwa ni pamoja na Superpave), uhakikisho wa ubora, na usimamizi wa maabara nchini Ethiopia na Tanzania.',
+
+                // Skills
+                skill1: 'Muundo wa Lami',
+                skill2: 'Muundo wa Mchanganyiko wa Saruji',
+                skill3: 'Muundo wa Mchanganyiko wa Lami (Superpave na Marshall)',
+                skill4: 'Muundo wa DBST',
+                skill5: 'Uchambuzi wa DCP',
+                skill6: 'Usimamizi wa Maabara',
+                skill7: 'Uhakikisho wa Ubora',
+                skill8: 'Usimamizi wa Ujenzi',
+                skill9: 'Upimaji wa Vifaa',
+
+                // Membership
+                membershipText: 'Mhandisi wa Nyenzo wa Kitaaluma Anayefanya Kazi',
+                license: 'Leseni: PPME/1949',
+
+                // Languages
+                lang1: 'Kiingereza: Bora',
+                lang2: 'Kiamhari: Asili',
+
+                // Certification
+                certificationTitle: 'Uthibitisho:',
+                certificationText: 'Mimi, aliyetia saini hapa chini, ninathibitisha kuwa kwa ujuzi na imani yangu bora, CV hii inanielezea kwa usahihi, sifa zangu, na uzoefu wangu, na niko tayari kufanya kazi. Ninaelewa kuwa kauli yoyote isiyo sahihi au uwakilishi mbaya uliofafanuliwa hapa unaweza kusababisha kufukuzwa kazi au kuondolewa na Mteja.'
+            },
+            fr: {
+                // Section titles
+                skills: 'Compétences',
+                software: 'Logiciels',
+                languages: 'Langues',
+                membership: 'Adhésion',
+                experience: 'Expériences Professionnelles',
+                education: 'Formations et Perfectionnements',
+                references: 'Références Professionnelles',
+
+                // Job title and summary
+                jobTitle: 'Ingénieur Senior en Chaussées et Matériaux',
+                summary: 'Ingénieur Senior en Chaussées et Matériaux hautement expérimenté avec plus de 15 ans d\'expertise en supervision de construction routière, révision de conception et essais de matériaux. Expert en conception de mélanges de béton et d\'asphalte (y compris Superpave), assurance qualité et gestion de laboratoire en Éthiopie et en Tanzanie.',
+
+                // Skills
+                skill1: 'Conception de Chaussées',
+                skill2: 'Conception de Mélange de Béton',
+                skill3: 'Conception de Mélange d\'Asphalte (Superpave et Marshall)',
+                skill4: 'Conception DBST',
+                skill5: 'Analyse DCP',
+                skill6: 'Gestion de Laboratoire',
+                skill7: 'Assurance Qualité',
+                skill8: 'Supervision de Construction',
+                skill9: 'Essais de Matériaux',
+
+                // Membership
+                membershipText: 'Ingénieur Professionnel des Matériaux en Exercice',
+                license: 'Licence: PPME/1949',
+
+                // Languages
+                lang1: 'Anglais: Excellent',
+                lang2: 'Amharique: Natif',
+
+                // Certification
+                certificationTitle: 'Certification:',
+                certificationText: 'Je, soussigné, certifie qu\'à ma connaissance et selon ma conviction, ce CV me décrit correctement, mes qualifications et mon expérience, et je suis disponible pour entreprendre des missions. Je comprends que toute fausse déclaration ou fausse représentation décrite ici peut entraîner ma disqualification ou mon licenciement par le Client.'
+            },
+            am: {
+                // Section titles
+                skills: 'ክህሎቶች',
+                software: 'ሶፍትዌር',
+                languages: 'ቋንቋዎች',
+                membership: 'አባልነት',
+                experience: 'የሙያ ልምድ',
+                education: 'ትምህርት እና ስልጠና',
+                references: 'የሙያ ማጣቀሻዎች',
+
+                // Job title and summary
+                jobTitle: 'ከፍተኛ የመንገድ እና የግንባታ ቁሳቁስ መሐንዲስ',
+                summary: 'ከ15 ዓመታት በላይ በመንገድ ግንባታ ክትትል፣ የንድፍ ግምገማ እና የቁሳቁስ ሙከራ ልምድ ያለው ልምድ ያለው ከፍተኛ የመንገድ እና የግንባታ ቁሳቁስ መሐንዲስ። በኮንክሪት እና አስፋልት ድብልቅ ንድፍ (ሱፐርፔቭን ጨምሮ)፣ የጥራት ማረጋገጫ እና በኢትዮጵያ እና ታንዛኒያ የላቦራቶሪ አስተዳደር ባለሙያ።',
+
+                // Skills
+                skill1: 'የመንገድ ንድፍ',
+                skill2: 'የኮንክሪት ድብልቅ ንድፍ',
+                skill3: 'የአስፋልት ድብልቅ ንድፍ (ሱፐርፔቭ እና ማርሻል)',
+                skill4: 'የDBST ንድፍ',
+                skill5: 'የDCP ትንተና',
+                skill6: 'የላቦራቶሪ አስተዳደር',
+                skill7: 'የጥራት ማረጋገጫ',
+                skill8: 'የግንባታ ክትትል',
+                skill9: 'የቁሳቁስ ሙከራ',
+
+                // Membership
+                membershipText: 'ተግባራዊ ሙያዊ የቁሳቁስ መሐንዲስ',
+                license: 'ፈቃድ: PPME/1949',
+
+                // Languages
+                lang1: 'እንግሊዝኛ: በጣም ጥሩ',
+                lang2: 'አማርኛ: የአፍ መፍቻ',
+
+                // Certification
+                certificationTitle: 'የምስክር ወረቀት:',
+                certificationText: 'እኔ ከዚህ በታች የፈረምኩት፣ በእውቀቴ እና በእምነቴ መሠረት ይህ ሲቪ እኔን፣ ብቃቴን እና ልምዴን በትክክል እንደሚገልጽ እና ስራዎችን ለመስራት ዝግጁ መሆኔን አረጋግጣለሁ። እዚህ የተገለጸ ማንኛውም የተሳሳተ መግለጫ ወይም ስህተት በደንበኛው ብቃት ማጣት ወይም መባረር ሊያስከትል እንደሚችል ተረድቻለሁ።'
+            }
+        };
+
+        function changeLanguage() {
+            const selectedLang = document.getElementById('languageSelect').value;
+            const trans = fullTranslations[selectedLang];
+
+            // Update all data-lang elements
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (trans[key]) {
+                    element.textContent = trans[key];
+                }
+            });
+        }
     </script>
+
 </body>
 
 </html>
